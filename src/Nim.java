@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class game
+public class Nim
 {
     void main() {
         //  int[] matches = {1,2,3,4,5}; //items to play; a better cs student as a better way of populating this array.
