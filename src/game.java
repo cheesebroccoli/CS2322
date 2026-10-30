@@ -4,129 +4,71 @@ import java.util.Scanner;
 public class game
 {
     void main() {
-        int[] matches = {1,2,3,4,5}; //items to play; a better cs student as a better way of populating this array.
-        //int[] matches = {3,7,5};
+        //  int[] matches = {1,2,3,4,5}; //items to play; a better cs student as a better way of populating this array.
+        //TODO: one day, you'd be able to do normal rows like above and remove by color but I hadn't quite figured out how to do that
+        int[] matches = {3, 7, 5};
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Welcome to Double Trouble! The goal of the game is to be the last person to take a match. The matches are in a triangular configuration");
         System.out.println("The first row having 1 match, the second having 2 so on up to " + matches.length + " rows");
         boolean playerTurn = false; //default first move -> grab 1.
         System.out.print("Would you like to go first (yes or no): "); //technically second player is better bc they start with an nim sum
-        if(scanner.nextLine().toLowerCase().equals("yes")) 
-        {
+        if (scanner.nextLine().toLowerCase().equals("yes")) {
             playerTurn = true;
         }
-        while(totalMatches(matches,0,matches.length-1)> 1) //while there is more than just one left. At one you are able to declare winner
+        while (totalMatches(matches, 0, matches.length - 1) > 1) //while there is more than just one left. At one you are able to declare winner
         {
-                boolean legal = false; //whether a player move is considered legal
+            boolean legal = false; //whether a player move is considered legal
 
             printMatches(matches); //number of matches from each row left. doesn't matter in what order
 
             /**
              * TODO: make it so it is removal by color rather than removal by row
              */
-           while(playerTurn){
-               int row = 0; //the row that they are pulling form
-               int nom = row+1; // the number of stones the player is pulling from. based off that, we should get the color (1-2, co.1, 3,4, co.2, 5, co 3.)
-                while(!legal) {
+            while (playerTurn) {
+                int row = 0; //the row that they are pulling form
+                int nom = row + 1; // the number of stones the player is pulling from. based off that, we should get the color (1-2, co.1, 3,4, co.2, 5, co 3.)
+                while (!legal) {
 
                     System.out.print("row: ");
-                    row = scanner.nextInt()-1; //1 -> 0, 2-> 1 ...
-                    if (row <= matches.length && row>-1) { //valid row number
+                    row = scanner.nextInt() - 1; //1 -> 0, 2-> 1 ...
+                    if (row <= matches.length && row > -1) { //valid row number
                         legal = true;
                         break;
                     }
                     //if row does fit in color
-                    System.out.println(row +1 + " is an invalid row");
+                    System.out.println(row + 1 + " is an invalid row");
                 }
                 legal = false; //reset this variable so it will also check for number of matches they are taking
 
-                while(!legal) {
+                while (!legal) {
                     System.out.print("amount: ");
                     nom = scanner.nextInt();
-                    if(nom<=matches[row] && nom >0)
-                    {
+                    if (nom <= matches[row] && nom > 0) {
                         legal = true;
                         break;
                     }
 
-                    System.out.println(nom + " is an invalid amount within row "+ (row+1) + " because there is only " + matches[row]+ " left");
+                    System.out.println(nom + " is an invalid amount within row " + (row + 1) + " because there is only " + matches[row] + " left");
                 }
-               matches[row] -= nom; //removes stones
-               legal = false; //resets it for next turn;
-               //TODO: add it so it can rerun this if there is more beads within the color
-               playerTurn = false; //goes to computer turn
-           } // paren for player
+                matches[row] -= nom; //removes stones
+                legal = false; //resets it for next turn;
+                //TODO: add it so it can rerun this if there is more beads within the color
+                playerTurn = false; //goes to computer turn
+            } // paren for player
 
-                //end of player turn. Start of computer turn
+            //end of player turn. Start of computer turn
             System.out.println("it's the computer's turn");
-            while(!playerTurn)
-            {
-                int green = totalMatches(matches,0,1); //3
-                int yellow = totalMatches(matches,2,3); //7
-                int red = totalMatches(matches,4,4); //5
-                int winCon = green^yellow^red;
+            while (!playerTurn) {
+                int green = matches[0];
+                int yellow = matches[1];
+                int red = matches[2];
+                int winCon = green ^ yellow ^ red;
 //                System.out.println("green:" + green);
 //                System.out.println("yellow: "+ yellow);
 //                System.out.println("red: "+ red);
 //                System.out.println(winCon);
-                System.out.println("winCon: " + winCon);
-                //TODO: implement this
-
-//                if(winCon == 0)
-//                {
-//                    Random r= new Random();
-//
-//                }
-//                else
-//                {
-                if((winCon) <= green)
-                {
-                    removeMatches(matches,winCon,0,1);
-                    System.out.printf("The computer has removed %s from the first two rows \n",winCon);
-                    //removeMatches(int[]m, int nom, int begin, int end)
-                    //green -= yellow^red;
-                    //  -> given that number remove starting from matches[begin] until it hits 0
-                }
-                else if((winCon) <= yellow)
-                {
-                    //yellow -= green^red
-                    removeMatches(matches,(winCon),2,3);
-                    System.out.printf("The computer has removed %s from the second two rows \n",(winCon));
-
-                }
-                else
-                {
-//                      red -= green ^ yellow
-                    removeMatches(matches,(winCon),4,4);
-                    System.out.printf("The computer has removed %s from the second two rows \n",(winCon));
-
-                }
-//                  if((winCon) <= green)
-//                  {
-//                      removeMatches(matches,winCon,0,1);
-//                      System.out.printf("The computer has removed %s from the first two rows \n",winCon);
-//                      //removeMatches(int[]m, int nom, int begin, int end)
-//                    //green -= yellow^red;
-//                  //  -> given that number remove starting from matches[begin] until it hits 0
-//                  }
-//                  else if((green^red) <= yellow)
-//                  {
-//                      //yellow -= green^red
-//                      removeMatches(matches,(green^red),2,3);
-//                      System.out.printf("The computer has removed %s from the second two rows \n",(green^red));
-//
-//                  }
-//                  else
-//                  {
-////                      red -= green ^ yellow
-//                      removeMatches(matches,(green^yellow),4,4);
-//                      System.out.printf("The computer has removed %s from the second two rows \n",(green^yellow));
-//
-//                   }
-                //}
-
-
+//                System.out.println("winCon: " + winCon);
 
                 /**
                  * if(winCon != 0)
@@ -141,14 +83,68 @@ public class game
                  * remove an amount so that the colors xored together != 0;
                  */
 
+                if (winCon == 0) {
+                    Random r = new Random();
+                    int row = r.nextInt(3);
+                    int number = r.nextInt(matches[row]) + 1;
+                    matches[row] -= number;
+                    System.out.printf("The computer has removed %d from the %d row \n", number, row+1);
+
+
+                }
+                else
+                {
+                    if ((winCon) <= green) {
+                        matches[0] -= winCon;
+                        System.out.printf("The computer has removed %s from the first row \n", winCon);
+                        //removeMatches(int[]m, int nom, int begin, int end)
+                        //green -= yellow^red;
+                        //  -> given that number remove starting from matches[begin] until it hits 0
+                    } else if ((winCon) <= red) {
+                        matches[2] -=winCon;
+                        //yellow -= green^red
+                        //  removeMatches(matches,(green^red),1,1);
+                        System.out.printf("The computer has removed %s from the last row \n", winCon);
+
+                    } else {
+                        matches[1] -= winCon;
+//                      yellow -= green ^ red
+                        // removeMatches(matches,(green^yellow),2,2);
+                        System.out.printf("The computer has removed %s from the second row \n", winCon);
+
+                    }
+//                    if ((yellow ^ red) >= green) {
+//                        matches[0] -= yellow^green;
+//                        System.out.printf("The computer has removed %s from the first row \n", yellow^red);
+//                        //removeMatches(int[]m, int nom, int begin, int end)
+//                        //green -= yellow^red;
+//                        //  -> given that number remove starting from matches[begin] until it hits 0
+//                    } else if ((yellow ^ green) >= red) {
+//                        matches[2] -=yellow ^red;
+//                        //yellow -= green^red
+//                        //  removeMatches(matches,(green^red),1,1);
+//                        System.out.printf("The computer has removed %s from the last row \n", (green ^ yellow));
+//
+//                    } else {
+//                        matches[1] -= green^red;
+////                      yellow -= green ^ red
+//                        // removeMatches(matches,(green^yellow),2,2);
+//                        System.out.printf("The computer has removed %s from the second row \n", (green ^ red));
+//
+//                    }
+                }
+
                 playerTurn = true; //end of computer turn
-            } //paren for computer
-        }// paren for while the game is playing
-        //last turn
-        System.out.println("there are "+ totalMatches(matches,0, matches.length-1) + " left.");
-//        String winner = (playerTurn) ? "You" : "The computer"; //if it's your turn whien there is one match, you win!
-//        System.out.printf("%s won",winner);
-    }
+            } //end of computer turn
+
+        } //before end of game
+        System.out.println("there are " + totalMatches(matches, 0, matches.length - 1) + " left.");
+        String winner = (playerTurn) ? "The computer" : "You"; //if it's your turn whien there is one match, you win!
+        System.out.printf("%s won!",winner);
+    } //end of main method
+
+
+
     void printMatches(int[]m) //prints number of matches in each row
     {
         System.out.println();
@@ -158,17 +154,9 @@ public class game
         }
         System.out.println();
     }
+
     //to find colors, add beginning row and end inclusive as an input (
     // total would be totaMatches(0, length), green would be totalMatches(0,1)
-    int totalMatches(int[] matches, int begin, int end)
-    {
-        int i = 0;
-        for(int x = begin; x<=end; x++)
-        {
-            i+=matches[x];
-        }
-        return i;
-    }
     void removeMatches(int[]m, int nom, int begin, int end)
     {
         int i = nom;
@@ -192,9 +180,36 @@ public class game
         printMatches(m);
 
     }
+    private int totalMatches(int[] m, int begin, int end) {
+
+        int i = 0;
+        for(int x = begin; x<=end; x++)
+        {
+            i+=m[x];
+        }
+        return i;
+    }
+} // end of class
 
 
+//                else {
+//                    if ((winCon) <= green) {
+//                        removeMatches(matches, winCon, 0, 1);
+//                        System.out.printf("The computer has removed %s from the first two rows \n", winCon);
+//                        //removeMatches(int[]m, int nom, int begin, int end)
+//                        //green -= yellow^red;
+//                        //  -> given that number remove starting from matches[begin] until it hits 0
+//                    } else if ((winCon) <= yellow) {
+//                        //yellow -= green^red
+//                        removeMatches(matches, (winCon), 2, 3);
+//                        System.out.printf("The computer has removed %s from the second two rows \n", (winCon));
+//
+//                    } else {
+////                      red -= green ^ yellow
+//                        removeMatches(matches, (winCon), 4, 4);
+//                        System.out.printf("The computer has removed %s from the second two rows \n", (winCon));
+//
+//                    }
 
-}
 
 
