@@ -1,28 +1,25 @@
 public class Lucas_Subirachs {
+    long startTimer;
+    long endTimer;
 
+    /**TODO
+     * Figure out how to get timers working
+     *
+     */
     void main()
     {
+        int n = 60;
 
-        int n = 45;
-        long startTimer = System.nanoTime();
-        int top = lucas(n+1);
-//        for(int i : numbers(n))
+        float goldenRatio = (float)lucas(n+1)/(float)lucas(n);
+        float silverRatio = (float)chenchen(n+1)/(float)chenchen(n);
+        System.out.println(silverRatio);
+        System.out.println(goldenRatio);
+//        System.out.println(goldenTime);
+//        for(int i : betterNumbers(n))
 //        {
 //            System.out.print(i + " ");
 //        }
 //
-        long endTimer = System.nanoTime();
-        long top_time = endTimer - startTimer;
-
-        startTimer = System.nanoTime();
-        int bottom = lucas(n);
-        endTimer = System.nanoTime();
-        long bottom_time = endTimer - startTimer;
-
-        float goldenRatio = (float)top/(float)bottom;
-        float goldenTime = (float)top_time/(float)bottom_time;
-//        System.out.println(goldenRatio);
-        System.out.println(goldenTime);
     }
 
 
@@ -32,6 +29,10 @@ public class Lucas_Subirachs {
     //calculate lucas numbers
     int lucas(int n)
     {
+        if(n <0)
+        {
+            return -1;
+        }
         if(n == 0)
         {
             return 2;
@@ -46,24 +47,55 @@ public class Lucas_Subirachs {
         }
     }
 
+    //calculate the vastly superior Chen-Chen numbers
+    //13 and 6 are my favorite numbers
+    int chenchen(int n)
+    {
+        if(n <0)
+        {
+            return -1;
+        }
+        if(n == 0)
+        {
+            return 6;
+        }
+        else if(n == 1)
+        {
+            return 13;
+        }
+        else
+        {
+            return chenchen(n-1) + chenchen(n-2);
+            //this is the relationship between 6 and 13 but I kept it as above because I wanted to illustrate that the starting numbers
+            //does not make the golden ratio, it is the... ratio. From 1-39 at least.
+           // return (2* chenchen(n - 1)) + 1;
+        }
+    }
+
     //prints out lucas numbers
     int[] numbers(int n)
     {
         int[] numbers = new int[n+1];
         for(int i = n; i>=0; i--)
         {
+            startTimer = System.nanoTime();
             numbers[i] = lucas(i);
+            endTimer = System.nanoTime();
+            System.out.print(endTimer - startTimer + " ");
         }
         return numbers;
     }
 
-    long readySetGo(int n)
+    //prints out chen-chen numbers
+    int[] betterNumbers(int n)
     {
-        long startTimer = System.nanoTime();
-        lucas(n);
-        long endTimer = System.nanoTime();
-
-        return endTimer - startTimer;
+        int[] numbers = new int[n+1];
+        for(int i = n; i>=0; i--)
+        {
+            numbers[i] = chenchen(i);
+        }
+        return numbers;
     }
+
 }
 
