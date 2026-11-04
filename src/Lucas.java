@@ -1,4 +1,4 @@
-public class Lucas_Subirachs {
+public class Lucas {
     long startTimer;
     long endTimer;
 
@@ -8,17 +8,16 @@ public class Lucas_Subirachs {
      */
     void main()
     {
-        int n = 60;
+        int n = 20;
 
         float goldenRatio = (float)lucas(n+1)/(float)lucas(n);
         float silverRatio = (float)chenchen(n+1)/(float)chenchen(n);
         System.out.println(silverRatio);
         System.out.println(goldenRatio);
-//        System.out.println(goldenTime);
-//        for(int i : betterNumbers(n))
-//        {
-//            System.out.print(i + " ");
-//        }
+        for(double i : numbers(n))
+        {
+            System.out.println(i);
+        }
 //
     }
 
@@ -75,14 +74,18 @@ public class Lucas_Subirachs {
     //prints out lucas numbers
     int[] numbers(int n)
     {
+        double[] time = new double[n+1];
         int[] numbers = new int[n+1];
         for(int i = n; i>=0; i--)
         {
-            startTimer = System.nanoTime();
+            long startTimer = System.nanoTime();
             numbers[i] = lucas(i);
-            endTimer = System.nanoTime();
-            System.out.print(endTimer - startTimer + " ");
+            long endTimer = System.nanoTime();
+            time[i] = (endTimer - startTimer)/100000.0;
+//            numbers[i+1] = time;
+            System.out.println(i + ": " + time[i] + " ms");
         }
+        System.out.println("ratio bw nums: " + time[n]/time[n-1]);
         return numbers;
     }
 
