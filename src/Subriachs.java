@@ -29,26 +29,12 @@ public class Subriachs {
         return counter;
 
     }
-    int allThreeCombos()
+    int allCombos(int[] arr, int subLength)
     {
-        int counter = 0;
-        for(int i = 0; i<subriachs.length; i++)
-        {
-            for(int j = 0; j<subriachs.length; j++)
-            {
-                for(int k = 0; k<subriachs.length; k++)
-                {
-
-                        if(subriachs[i]+subriachs[j]+subriachs[k] == 33 && i!=j && i!=k && j!=k)
-                        {
-                            System.out.println(subriachs[i]+" " + subriachs[j]+" "+ subriachs[k]);
-                            counter++;
-                        }
+        int r = subLength; //subLength is how many numbers you want in the new array. For example {123} can have an r of 1 {1,2,3} , 2{12,13,23} or 3 {123}
+        int n = arr.length; //n is how long the array is (how many times we will iterate through
+        int[] result;
 
 
-                }
-            }
-        }
-        return counter;
     }
 }
