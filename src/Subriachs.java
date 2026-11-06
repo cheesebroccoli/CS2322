@@ -31,15 +31,15 @@ public class Subriachs {
         int counter = 0;
         for(int i = 0; i<subriachs.length; i++)
         {
-            for(int j = 0; j<subriachs.length; j++)
+            for(int j = i+1; j<subriachs.length; j++)
             {
-                for(int k = 0; k<subriachs.length; k++)
+                for(int k = j+1; k<subriachs.length; k++)
                 {
-                    for(int l = 0; l<subriachs.length; l++)
+                    for(int l = k+1; l<subriachs.length; l++)
                     {
-                        if(subriachs[i]+subriachs[j]+subriachs[k]+subriachs[l] == 33 && i!=j && i!=k && i!=l && j!=k && j!=l && k!=l)
+                        if(subriachs[i]+subriachs[j]+subriachs[k]+subriachs[l] == 33)
                         {
-                            System.out.println(subriachs[i]+" " + subriachs[j]+" "+ subriachs[k]+" " +subriachs[l]);
+                           // System.out.println(subriachs[i]+" " + subriachs[j]+" "+ subriachs[k]+" " +subriachs[l]);
                             counter++;
                         }
                     }
