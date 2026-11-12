@@ -45,9 +45,6 @@ public class Binary_Reflected_Gray_Codes {
 
             System.out.println("is in the circus ring");
         }
-
-
-
     }
 
     int[] BRGCList(int n)
