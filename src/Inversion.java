@@ -23,14 +23,26 @@ public class Inversion {
      * the number of inversions in such an array A.
      * Call your program/project ‘easyinversioncount
      */
-    //BubbleSort or InsertionSort
-    void easyinversioncount(int[] arr)
+    //BubbleSort, returns number of swaps.
+    int easyinversioncount(int[] arr)
     {
-        int length = arr.length;
-        for(int index = 0; index<length;index++)
-        {
+        int n = arr.length;
+        int countSwaps = 0;
 
+        for (int i = 0; i < n - 1; i++){
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    countSwaps++;
+
+                }
+            }
         }
+
+        return countSwaps;
     }
 
     /**
@@ -82,6 +94,7 @@ public class Inversion {
             {
                 finalArray[finalIndex] = rightArr[rightIndex];
                 rightIndex++;
+                count+=(leftArr.length-leftIndex);
 
             }
             finalIndex++;
@@ -92,13 +105,11 @@ public class Inversion {
         {
             finalArray[finalIndex] = leftArr[leftIndex];
             leftIndex++;
-            count++;
         }
         while(rightIndex<rightArr.length)
         {
             finalArray[finalIndex] = rightArr[rightIndex];
             rightIndex++;
-            count++;
         }
 //        System.out.println(count);
 

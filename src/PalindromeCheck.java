@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Palindromes
+public class PalindromeCheck
 {
     void main()
     {
@@ -7,7 +7,7 @@ public class Palindromes
         System.out.print("palindrome here: ");
         String s = scan.nextLine();
 
-        palindrome(s,0,s.length()-1);
+        System.out.print("Is this a palindrome? The oracle says " + palindrome(s,0,s.length()-1));
         s = s.toLowerCase().replaceAll("[^a-zA-Z0-9\\\s]","");
     }
     public static boolean palindrome(String s, int i, int j)

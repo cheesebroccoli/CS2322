@@ -7,13 +7,119 @@ public class Binary_Reflected_Gray_Codes {
     void main()
     {
         int n = 5;
-        for(int i: BRGCList(n))
+        int past = 0;
+        for(int current: BRGCList(n))
         {
-            System.out.print(i+ " ");
-            personIsHere(i);
+
+//            System.out.print(current+ " ");
+//            System.out.print(past+ " ");
+//            System.out.println();
+//            personIsHere(current);
+//            System.out.print("Klutzomaniacs: ");
+            personArrived(current,past);
+            personLeft(current,past);
+            System.out.println();
+            past = current;
+
         }
 
     }
+    //if a bit was 1 before and 0 now
+    void personLeft(int current, int past)
+    {
+        boolean x = false;
+        if((current^past) == 0)
+        {
+            return;
+        }
+        if(current%2==0 && past%2==1)
+        {
+            System.out.print("Axel ");
+            x = true;
+        }
+        if((current/2)%2==0 && (past/2)%2==1)
+        {
+            System.out.print("Bozo ");
+            x = true;
+        }
+        if((current/4)%2==0 && (past/4)%2==1)
+        {
+            System.out.print("Crunchy ");
+            x = true;
+        }
+        if((current/8)%2==0 && (past/8)%2==1)
+        {
+            System.out.print("Doofus ");
+            x = true;
+        }
+        if((current/16)%2==0 && (past/16)%2==1)
+        {
+            System.out.print("Enzo ");
+            x = true;
+        }
+        if((current/32)%2==0 && (past/32)%2==1)
+        {
+            System.out.print("Fitz ");
+            x = true;
+        }
+        if((current/64)%2==0 && (past/64)%2==1)
+        {
+            System.out.print("Giggles ");
+            x = true;
+        }
+        if(!x)
+        {
+            return;
+        }
+        System.out.print("left");
+    }
+    //if a bit was 1 before and 0 now
+    void personArrived(int current, int past)
+    {
+        boolean x = false;
+        if(current%2==1 && past%2==0)
+        {
+            System.out.print("Axel ");
+            x = true;
+        }
+        if((current/2)%2==1 && (past/2)%2==0)
+        {
+            System.out.print("Bozo ");
+            x = true;
+        }
+        if((current/4)%2==1 && (past/4)%2==0)
+        {
+            System.out.print("Crunchy ");
+            x = true;
+        }
+        if((current/8)%2==1 && (past/8)%2==0)
+        {
+            System.out.print("Doofus ");
+            x = true;
+        }
+        if((current/16)%2==1 && (past/16)%2==0)
+        {
+            System.out.print("Enzo ");
+            x = true;
+        }
+        if((current/32)%2==1 && (past/32)%2==0)
+        {
+            System.out.print("Fitz ");
+            x = true;
+        }
+        if((current/64)%2==1 && (past/64)%2==0)
+        {
+            System.out.print("Giggles ");
+            x = true;
+        }
+        if(!x)
+        {
+            return;
+        }
+        System.out.print("arrived");
+    }
+
+
     void personIsHere(int n)
     {
         if(n == 0)
@@ -42,6 +148,15 @@ public class Binary_Reflected_Gray_Codes {
             {
                 System.out.print("Enzo ");
             }
+            if((n/32)%2 == 1)
+            {
+                System.out.print("Fitz ");
+            }
+            if((n/64)%2 == 1)
+            {
+                System.out.print("Giggles ");
+            }
+
 
             System.out.println("is in the circus ring");
         }
